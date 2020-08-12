@@ -22,6 +22,24 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
           
+      - name: Find and Replace deployment rpc username
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: BLOCKNET_DAEMON_RPCUSERNAME
+          replace: ${{ secrets.BLOCKNET_DAEMON_RPCUSERNAME }}
+          
+      - name: Find and Replace deployment rpc password
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: BLOCKNET_DAEMON_RPCPASSWORD
+          replace: ${{ secrets.BLOCKNET_DAEMON_RPCPASSWORD }}
+         
+      - name: Find and Replace deployment rpc url
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: BLOCKNET_DAEMON_URL
+          replace: ${{ secrets.BLOCKNET_DAEMON_URL }}}}
+          
       - name: Build and Publish Docker image
         uses: docker/build-push-action@v1.1.0
         with:
@@ -35,25 +53,7 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@master
         with:
           find: PLACEHOLDER_IMAGE_LOCATION
-          replace:  xrouterserviceexplorer/xrouter.api:${{ github.sha }}
-          
-      - name: Find and Replace deployment rpc username
-        uses: jacobtomlinson/gha-find-replace@master
-        with:
-          find: BLOCKNET_DAEMON_RPCUSERNAME
-          replace: ${{ secrets.BLOCKNET_DAEMON_RPCUSERNAME }}
-          
-      - name: Find and Replace deployment rpc username
-        uses: jacobtomlinson/gha-find-replace@master
-        with:
-          find: BLOCKNET_DAEMON_RPCPASSWORD
-          replace: ${{ secrets.BLOCKNET_DAEMON_RPCPASSWORD }}
-         
-      - name: Find and Replace deployment rpc url
-        uses: jacobtomlinson/gha-find-replace@master
-        with:
-          find: BLOCKNET_DAEMON_URL
-          replace: ${{ secrets.BLOCKNET_DAEMON_URL }}}}
+          replace:  xrouterserviceexplorer/xcloud.api:${{ github.sha }}
         
       - name: Deploy Docker Image
         uses: Jberlinsky/kubernetes-action@master
