@@ -38,7 +38,7 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@master
         with:
           find: BLOCKNET_DAEMON_URL
-          replace: ${{ secrets.BLOCKNET_DAEMON_URL }}}}
+          replace: ${{ secrets.BLOCKNET_DAEMON_URL }}
           
       - name: Build and Publish Docker image
         uses: docker/build-push-action@v1.1.0
