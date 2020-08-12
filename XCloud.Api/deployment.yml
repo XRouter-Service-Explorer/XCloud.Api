@@ -26,7 +26,7 @@ items:
           run: xcloud-api
       spec:
         containers:
-        - image: lucienmartijn/xcloud.api:v1.1.11
+        - image: PLACEHOLDER_IMAGE_LOCATION
           imagePullPolicy: Always
           name: xcloud-api
           ports:
