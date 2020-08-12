@@ -31,11 +31,23 @@ jobs:
           dockerfile: ./XCloud.Api/Dockerfile
           tags: ${{ github.sha }}
           
-      - name: Find and Replace deployment manifest
+      - name: Find and Replace deployment rpc username
         uses: jacobtomlinson/gha-find-replace@master
         with:
-          find: PLACEHOLDER_IMAGE_LOCATION
-          replace:  xrouterserviceexplorer/xcloud.api:${{ github.sha }}
+          find: BLOCKNET_DAEMON_RPCUSERNAME
+          replace: ${{ secrets.BLOCKNET_DAEMON_RPCUSERNAME }}
+          
+      - name: Find and Replace deployment rpc username
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: BLOCKNET_DAEMON_RPCPASSWORD
+          replace: ${{ secrets.BLOCKNET_DAEMON_RPCPASSWORD }}
+         
+      - name: Find and Replace deployment rpc url
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: BLOCKNET_DAEMON_URL
+          replace: ${{ secrets.BLOCKNET_DAEMON_URL }}}}
         
       - name: Deploy Docker Image
         uses: Jberlinsky/kubernetes-action@master
