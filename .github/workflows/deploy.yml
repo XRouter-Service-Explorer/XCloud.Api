@@ -31,6 +31,12 @@ jobs:
           dockerfile: ./XCloud.Api/Dockerfile
           tags: ${{ github.sha }}
           
+      - name: Find and Replace deployment manifest
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: PLACEHOLDER_IMAGE_LOCATION
+          replace:  xrouterserviceexplorer/xrouter.api:${{ github.sha }}
+          
       - name: Find and Replace deployment rpc username
         uses: jacobtomlinson/gha-find-replace@master
         with:
