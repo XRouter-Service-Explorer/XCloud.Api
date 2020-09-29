@@ -44,14 +44,19 @@ namespace XCloud.Api.Controllers
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, url);
 
-            httpRequest.Headers.Add("XR-Signature", request.Signature);
-            httpRequest.Headers.Add("XR-Pubkey", request.NodePubKey);
-            httpRequest.Headers.Add("XR-Payment", request.RawTxHex);
+            if (request.Signature != null && request.RawTxHex != null && request.NodePubKey != null)
+            {
+                httpRequest.Headers.Add("XR-Signature", request.Signature);
+                httpRequest.Headers.Add("XR-Pubkey", request.NodePubKey);
+                httpRequest.Headers.Add("XR-Payment", request.RawTxHex);
+            }
 
-            var content = JsonConvert.SerializeObject(request.Params);
-
-            HttpContent httpContent = new StringContent(content, Encoding.UTF8, "application/json");
-            httpRequest.Content = httpContent;
+            if (request.Params != null && request.Params.Length > 0)
+            {
+                var content = JsonConvert.SerializeObject(request.Params);
+                HttpContent httpContent = new StringContent(content, Encoding.UTF8, "application/json");
+                httpRequest.Content = httpContent;
+            }
 
             var response = await httpClient.SendAsync(httpRequest);
 
