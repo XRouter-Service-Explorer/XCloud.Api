@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using XCloud.Api.Controllers.ViewModel;
 using XCloud.Api.Controllers.ViewModels;
+using XCloud.Api.Helpers;
 
 namespace XCloud.Api.Controllers
 {
@@ -66,8 +67,11 @@ namespace XCloud.Api.Controllers
 
                 if (response.Content.Headers.ContentType.MediaType == "application/json")
                 {
-                    var result = JsonConvert.DeserializeObject<object>(responseStream);
-                    return Ok(result);
+                    if (JsonHelper.IsJson(responseStream))
+                    {
+                        var result = JsonConvert.DeserializeObject<object>(responseStream);
+                        return Ok(result);
+                    }
                 }
                 return Content(responseStream);
             }
