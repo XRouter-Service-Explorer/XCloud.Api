@@ -64,8 +64,12 @@ namespace XCloud.Api.Controllers
             {
                 var responseStream = await response.Content.ReadAsStringAsync();
 
-                var result = JsonConvert.DeserializeObject<object>(responseStream);
-                return Ok(result);
+                if (response.Content.Headers.ContentType.MediaType == "application/json")
+                {
+                    var result = JsonConvert.DeserializeObject<object>(responseStream);
+                    return Ok(result);
+                }
+                return Content(responseStream);
             }
 
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
